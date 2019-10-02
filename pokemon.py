@@ -69,10 +69,21 @@ class Pokemon:
 
 Charmander = Pokemon('Charmander', 12, 'Fire', 60, True)
 Squirtle = Pokemon('Squirtle', 15, 'Water', 85, True)
-Bulbasaur = Pokemon('Bulbasaur', 13, 'Grass', 65, True)
-
-Charmander.attack(Squirtle)
-Squirtle.attack(Charmander)
+Bulbasaur = Pokemon('Bulbasaur', 13, 'Grass', 75, True)
 
 
 #so what shall we wrk on now...
+class Trainer:
+    def __init__(self, name, no_of_potions, pokemon_list, currently_active):
+        self.name = name
+        self.no_of_potions = no_of_potions
+        self.pokemon_list = pokemon_list
+        self.currently_active = currently_active
+
+    def __repr__(self):
+        return "{a} is a pokemon trainer in possessetion of {b} potions and {c} pokemon. Of those pokemon, {d} are active.".format(a = self.name, b = self.no_of_potions, c = len(self.pokemon_list), d = self.currently_active)
+    
+
+
+Alex = Trainer('Alex', 12, [Charmander, Squirtle], 2)
+print(Alex)
