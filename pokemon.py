@@ -38,27 +38,27 @@ class Pokemon:
     def attack(self, damaged_pokemon):
         attack_modifier = 1
         if self.kind == "fire" :
-            if damaged_pokemon.self.kind == "water":
+            if damaged_pokemon.kind == "water":
                 attack_modifier = 0.5
-            elif damaged_pokemon.self.kind == "grass":
+            elif damaged_pokemon.kind == "grass":
                 attack_modifier = 2
         
         elif self.kind == "water" :
-            if damaged_pokemon.self.kind == "fire":
+            if damaged_pokemon.kind == "fire":
                 attack_modifier = 2
-            elif damaged_pokemon.self.kind == "grass":
+            elif damaged_pokemon.kind == "grass":
                 attack_modifier = 0.5
         
         elif self.kind == "grass" :
-            if damaged_pokemon.self.kind == "fire":
+            if damaged_pokemon.kind == "fire":
                 attack_modifier = 0.5
-            elif damaged_pokemon.self.kind == "water":
+            elif damaged_pokemon.kind == "water":
                 attack_modifier = 2
         
 
         attack_damage = self.level*attack_modifier
         damaged_pokemon.lose_health(attack_damage)
-        print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.self.name, c = attack_damage))
+        print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.name, c = attack_damage))
         
 
 
@@ -67,9 +67,12 @@ class Pokemon:
 
 
 
-Charmander = Pokemon('Charlie', 12, 'Fire', 60, True)
-Squirtle = Pokemon('Splashy', 15, 'Water', 85, True)
+Charmander = Pokemon('Charmander', 12, 'Fire', 60, True)
+Squirtle = Pokemon('Squirtle', 15, 'Water', 85, True)
+Bulbasaur = Pokemon('Bulbasaur', 13, 'Grass', 65, True)
 
 Charmander.attack(Squirtle)
+Squirtle.attack(Charmander)
+
 
 #so what shall we wrk on now...
