@@ -90,14 +90,19 @@ class Trainer: # defines class of trainers with inputs
         if self.no_of_potions > 0:
             self.pokemon_list[pokemon_index].regain_health(30)
             self.no_of_potions -= 1
-        else print("You have no potions trainer!")
+        else: print("You have no potions trainer!")
     
     def attack_other_trainer(self, other_trainer): # attacks another trainers active pokemon
-        self.pokemon_list[self.pokemon_index].attack(other_trainer.pokemon_list[other_trainer.pokemon_index])
+        print("Trainer {a} attacked trainer {b} using {c} against {d}.".format(a = self.name, b = other_trainer.name, c = self.pokemon_list[self.currently_active], d = other_trainer.pokemon_list[other_trainer.currently_active]))
+        self.pokemon_list[self.currently_active].attack(other_trainer.pokemon_list[other_trainer.currently_active])
         
     def switch_pokemon(self, new_pokemon_index): # switches the active pokemon of this trainer
-        self.currently_actibe = new_pokemon_index
+        self.currently_active = new_pokemon_index
 
 
 
 Alex = Trainer('Alex', 12, [Charmander, Squirtle], 0)
+
+Geordie = Trainer('Trainer', 15, [Bulbasaur, Bulbasaur], 0)
+
+Alex.attack_other_trainer(Geordie)
