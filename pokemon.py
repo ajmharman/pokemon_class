@@ -58,6 +58,7 @@ class Pokemon:
 
         attack_damage = self.level*attack_modifier
         damaged_pokemon.lose_health(attack_damage)
+        print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.self.name, c = attack_damage))
         
 
 
@@ -66,6 +67,9 @@ class Pokemon:
 
 
 
-Charmander = Pokemon('Charlie', 12, 'Fire', 50, True)
+Charmander = Pokemon('Charlie', 12, 'Fire', 60, True)
+Squirtle = Pokemon('Splashy', 15, 'Water', 85, True)
+
+Charmander.attack(Squirtle)
 
 #so what shall we wrk on now...
