@@ -35,9 +35,14 @@ class Pokemon:
         self.conscious = True
         print("{a} has been revived and gained 10 health.".format(a = self.name))
 
-    def attack(self, other_pokemon):
-        
+    def attack(self, damaged_pokemon):
+        attack_modifier = 1
+        attack_damage = self.level*attack_modifier
+
+
+
 
 
 Charmander = Pokemon('Charlie', 12, 'Fire', 50, True)
 
+#so what shall we wrk on now...
