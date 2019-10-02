@@ -1,0 +1,43 @@
+class Pokemon:
+    def __init__(self, name, level, kind, current_health, conscious):
+        self.name = name
+        self.level = level
+        self.kind = kind
+        self.maximum_health = 10 + (self.level * 5)
+        self.current_health = current_health
+        self.conscious = conscious
+
+    def __repr__(self):
+        if self.conscious == True:
+            return "This pokemon is called {a} and has reached level {b}. It is of kind '{c}' and has current health {d}. It is conscious.".format(a = self.name, b = self.level, c = self.kind, d = self.current_health)
+        elif self.conscious == False:
+            return "This pokemon is called {a} and has reached level {b}. It is of kind '{c}' and has current health {d}. It is unconscious.".format(a = self.name, b = self.level, c = self.kind, d = self.current_health)
+    
+
+    def lose_health(self, damage):
+        self.current_health -= damage
+        print ("{a} has lost {b} health.".format(a = self.name, b = damage))
+
+        if self.current_health < 0:
+            self.current_health = 0
+            self.conscious = False
+            print("This knocked them out!")
+
+
+    def regain_health(self, healing):
+        self.current_health += healing
+        if self.current_health > self.maximum_health:
+            self.current_health = self.maximum_health
+        print("{a} has gained {b} health.".format(a = self.name, b = healing))
+
+    def revive_pokemon(self):
+        self.current_health = 10
+        self.conscious = True
+        print("{a} has been revived and gained 10 health.".format(a = self.name))
+
+    def attack(self, other_pokemon):
+        
+
+
+Charmander = Pokemon('Charlie', 12, 'Fire', 50, True)
+
