@@ -19,7 +19,7 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
 
     def lose_health(self, damage): #removes health from a pokemon and knocks them out if they reach 0hp
         self.current_health -= damage
-        print ("{a} has lost {b} health.".format(a = self.name, b = damage))
+        print ("{a} has lost {b} health. They have {c} health remaining.".format(a = self.name, b = damage, c = self.current_health))
 
         if self.current_health < 0:
             self.current_health = 0
@@ -39,7 +39,9 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
         print("{a} has been revived and gained 10 health.".format(a = self.name))
 
     def attack(self, damaged_pokemon): # causes damage to a second pokemon based on the attacking and defending kinds.
-        attack_modifier = 1
+        attack_modifier = 1 #used to adjust damage based on kinds, stays as 1 if kinds are the same.
+        #fire beats grass, grass beats water, water beats fire. If attacking has advantage damage * 2, if defending has advantage damage * 0.5
+
         if self.kind == "fire" :
             if damaged_pokemon.kind == "water":
                 attack_modifier = 0.5
@@ -60,13 +62,11 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
         
 
         attack_damage = self.level*attack_modifier
-        damaged_pokemon.lose_health(attack_damage)
         print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.name, c = attack_damage))
-        
+        damaged_pokemon.lose_health(attack_damage)
 
 
-
-
+## at some point will write code for creating pokemon and leveling up etc and other attributes based on type
 
 
 
@@ -82,27 +82,30 @@ class Trainer: # defines class of trainers with inputs
         self.no_of_potions = no_of_potions
         self.pokemon_list = pokemon_list
         self.currently_active = currently_active
+        self.active_pokemon = self.pokemon_list[self.currently_active] #pulls the active pokemon out of the list using the index of currently_active
 
     def __repr__(self): # on calling a trainer, prints the basic information
-        return "{a} is a pokemon trainer in possessetion of {b} potions and {c} pokemon. Of those pokemon, {d} are active.".format(a = self.name, b = self.no_of_potions, c = len(self.pokemon_list), d = self.pokemon_list[self.currently_active])
+        return "{a} is a pokemon trainer in possessetion of {b} potions and {c} pokemon. Of those pokemon one is active. {d}".format(a = self.name, b = self.no_of_potions, c = len(self.pokemon_list), d = self.pokemon_list[self.currently_active])
 
     def use_potion(self, pokemon_index): # uses a potion to heal 30 health a stated pokemon
         if self.no_of_potions > 0:
-            self.pokemon_list[pokemon_index].regain_health(30)
+            self.active_pokemon.regain_health(30)
             self.no_of_potions -= 1
         else: print("You have no potions trainer!")
     
     def attack_other_trainer(self, other_trainer): # attacks another trainers active pokemon
-        print("Trainer {a} attacked trainer {b} using {c} against {d}.".format(a = self.name, b = other_trainer.name, c = self.pokemon_list[self.currently_active], d = other_trainer.pokemon_list[other_trainer.currently_active]))
-        self.pokemon_list[self.currently_active].attack(other_trainer.pokemon_list[other_trainer.currently_active])
+        print("Trainer {a} attacked trainer {b} using {c} against {d}.".format(a = self.name, b = other_trainer.name, c = self.active_pokemon.name, d = other_trainer.active_pokemon.name))
+        self.active_pokemon.attack(other_trainer.active_pokemon)
         
-    def switch_pokemon(self, new_pokemon_index): # switches the active pokemon of this trainer
+    def switch_pokemon(self, new_pokemon_index): # switches the active pokemon of this trainer and the index stored as active
         self.currently_active = new_pokemon_index
+        self.active_pokemon = self.pokemon_list[self.currently_active]
 
 
 
 Alex = Trainer('Alex', 12, [Charmander, Squirtle], 0)
 
-Geordie = Trainer('Trainer', 15, [Bulbasaur, Bulbasaur], 0)
+Geordie = Trainer('Geordie', 15, [Bulbasaur, Bulbasaur], 0)
 
-Alex.attack_other_trainer(Geordie)
+Alex.switch_pokemon(1)
+print(Alex.currently_active, Alex.active_pokemon.name)
