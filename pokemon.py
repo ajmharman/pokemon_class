@@ -25,7 +25,7 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
             self.conscious = False
             print("They have 0 health remaining. This knocked them out!")
         
-        else: print("{a} has lost {b} health and have {c} remaining.".format(a = self.name, b = damage, c = self.current_health))
+        else: print("{a} has lost {b} health and has {c} remaining.".format(a = self.name, b = damage, c = self.current_health))
 
 
     def regain_health(self, healing): # heals the pokemon up to a limit of their max health.
@@ -90,9 +90,12 @@ class Trainer: # defines class of trainers with inputs
         return "{a} is a pokemon trainer in possessetion of {b} potions and {c} pokemon. Of those pokemon one is active. {d}".format(a = self.name, b = self.no_of_potions, c = len(self.pokemon_list), d = self.pokemon_list[self.currently_active])
 
     def use_potion(self, pokemon_index): # uses a potion to heal 30 health a stated pokemon
+        selected_pokemon = self.pokemon_list[pokemon_index]
         if self.no_of_potions > 0:
-            self.active_pokemon.regain_health(30)
-            self.no_of_potions -= 1
+            if selected_pokemon.conscious:
+                selected_pokemon.regain_health(30)
+                self.no_of_potions -= 1
+            else: selected_pokemon.revive_pokemon
         else: print("You have no potions trainer!")
     
     def attack_other_trainer(self, other_trainer): # attacks another trainers active pokemon
@@ -102,8 +105,10 @@ class Trainer: # defines class of trainers with inputs
         print
 
     def switch_pokemon(self, new_pokemon_index): # switches the active pokemon of this trainer and the index stored as active
-        self.currently_active = new_pokemon_index
-        self.active_pokemon = self.pokemon_list[self.currently_active]
+        if self.pokemon_list[new_pokemon_index].conscious:
+            self.currently_active = new_pokemon_index
+            self.active_pokemon = self.pokemon_list[self.currently_active]
+        else: print("You cannot switch to this pokemon as it is unconscious!")
 
 
 
@@ -120,6 +125,7 @@ Geordie.attack_other_trainer(Alex)
 Alex.attack_other_trainer(Geordie)
 Geordie.attack_other_trainer(Alex)
 Alex.attack_other_trainer(Geordie)
+Geordie.attack_other_trainer(Alex)
 Geordie.switch_pokemon(1)
 Geordie.attack_other_trainer(Alex)
 
