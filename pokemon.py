@@ -18,13 +18,14 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
     
 
     def lose_health(self, damage): #removes health from a pokemon and knocks them out if they reach 0hp
-        self.current_health -= damage
-        print ("{a} has lost {b} health. They have {c} health remaining.".format(a = self.name, b = damage, c = self.current_health))
-
+        self.current_health -= damage #subtracts the damage form the current health
+        
         if self.current_health < 0:
             self.current_health = 0
             self.conscious = False
-            print("This knocked them out!")
+            print("They have 0 health remaining. This knocked them out!")
+        
+        else: print("{a} has lost {b} health and have {c} remaining.".format(a = self.name, b = damage, c = self.current_health))
 
 
     def regain_health(self, healing): # heals the pokemon up to a limit of their max health.
@@ -97,7 +98,9 @@ class Trainer: # defines class of trainers with inputs
     def attack_other_trainer(self, other_trainer): # attacks another trainers active pokemon
         print("Trainer {a} attacked trainer {b} using {c} against {d}.".format(a = self.name, b = other_trainer.name, c = self.active_pokemon.name, d = other_trainer.active_pokemon.name))
         self.active_pokemon.attack(other_trainer.active_pokemon)
-        
+        print
+        print
+
     def switch_pokemon(self, new_pokemon_index): # switches the active pokemon of this trainer and the index stored as active
         self.currently_active = new_pokemon_index
         self.active_pokemon = self.pokemon_list[self.currently_active]
@@ -106,7 +109,22 @@ class Trainer: # defines class of trainers with inputs
 
 Alex = Trainer('Alex', 12, [Charmander, Squirtle], 0)
 
-Geordie = Trainer('Geordie', 15, [Bulbasaur, Bulbasaur], 0)
+Geordie = Trainer('Geordie', 15, [Bulbasaur, Squirtle], 0)
 
-Alex.switch_pokemon(1)
-print(Alex.currently_active, Alex.active_pokemon.name)
+
+## A battle, at some point this could be coded to loop until victory.
+Alex.attack_other_trainer(Geordie)
+Geordie.attack_other_trainer(Alex)
+Alex.attack_other_trainer(Geordie)
+Geordie.attack_other_trainer(Alex)
+Alex.attack_other_trainer(Geordie)
+Geordie.attack_other_trainer(Alex)
+Alex.attack_other_trainer(Geordie)
+Geordie.switch_pokemon(1)
+Geordie.attack_other_trainer(Alex)
+
+
+
+
+
+
