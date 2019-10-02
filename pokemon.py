@@ -41,29 +41,30 @@ class Pokemon: #defines the pokemon class and their starting attributes based on
     def attack(self, damaged_pokemon): # causes damage to a second pokemon based on the attacking and defending kinds.
         attack_modifier = 1 #used to adjust damage based on kinds, stays as 1 if kinds are the same.
         #fire beats grass, grass beats water, water beats fire. If attacking has advantage damage * 2, if defending has advantage damage * 0.5
+        if self.conscious == True:
+            if self.kind == "fire" :
+                if damaged_pokemon.kind == "water":
+                    attack_modifier = 0.5
+                elif damaged_pokemon.kind == "grass":
+                    attack_modifier = 2
+            
+            elif self.kind == "water" :
+                if damaged_pokemon.kind == "fire":
+                    attack_modifier = 2
+                elif damaged_pokemon.kind == "grass":
+                    attack_modifier = 0.5
+            
+            elif self.kind == "grass" :
+                if damaged_pokemon.kind == "fire":
+                    attack_modifier = 0.5
+                elif damaged_pokemon.kind == "water":
+                    attack_modifier = 2
+            
 
-        if self.kind == "fire" :
-            if damaged_pokemon.kind == "water":
-                attack_modifier = 0.5
-            elif damaged_pokemon.kind == "grass":
-                attack_modifier = 2
-        
-        elif self.kind == "water" :
-            if damaged_pokemon.kind == "fire":
-                attack_modifier = 2
-            elif damaged_pokemon.kind == "grass":
-                attack_modifier = 0.5
-        
-        elif self.kind == "grass" :
-            if damaged_pokemon.kind == "fire":
-                attack_modifier = 0.5
-            elif damaged_pokemon.kind == "water":
-                attack_modifier = 2
-        
-
-        attack_damage = self.level*attack_modifier
-        print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.name, c = attack_damage))
-        damaged_pokemon.lose_health(attack_damage)
+            attack_damage = self.level*attack_modifier
+            print("{a} attacked {b} and did {c} points of damage.".format(a = self.name, b = damaged_pokemon.name, c = attack_damage))
+            damaged_pokemon.lose_health(attack_damage)
+        else: print("{a} cannot attack as they are unconscous.".format(a = self.name))
 
 
 ## at some point will write code for creating pokemon and leveling up etc and other attributes based on type
