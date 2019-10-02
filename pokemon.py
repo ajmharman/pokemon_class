@@ -2,7 +2,7 @@ class Pokemon:
     def __init__(self, name, level, kind, current_health, conscious):
         self.name = name
         self.level = level
-        self.kind = kind
+        self.kind = kind.lower()
         self.maximum_health = 10 + (self.level * 5)
         self.current_health = current_health
         self.conscious = conscious
@@ -37,7 +37,30 @@ class Pokemon:
 
     def attack(self, damaged_pokemon):
         attack_modifier = 1
+        if self.kind == "fire" :
+            if damaged_pokemon.self.kind == "water":
+                attack_modifier = 0.5
+            elif damaged_pokemon.self.kind == "grass":
+                attack_modifier = 2
+        
+        elif self.kind == "water" :
+            if damaged_pokemon.self.kind == "fire":
+                attack_modifier = 2
+            elif damaged_pokemon.self.kind == "grass":
+                attack_modifier = 0.5
+        
+        elif self.kind == "grass" :
+            if damaged_pokemon.self.kind == "fire":
+                attack_modifier = 0.5
+            elif damaged_pokemon.self.kind == "water":
+                attack_modifier = 2
+        
+
         attack_damage = self.level*attack_modifier
+        damaged_pokemon.lose_health(attack_damage)
+        
+
+
 
 
 
