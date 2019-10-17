@@ -3,14 +3,19 @@
 
 class Pokemon:  # defines the pokemon class and their starting attributes based on the inputs.
     def __init__(
-        self, name, level, kind, current_health, conscious
+        self, name, kind, level = 1, conscious = True
     ):
         self.name = name
         self.level = level
         self.kind = kind.lower()
         self.maximum_health = 10 + (self.level * 5)
-        self.current_health = current_health
+        self.current_health = self.maximum_health
         self.conscious = conscious
+
+    def rename(
+        self, new_name
+        ):
+        self.name = new_name
 
     def __repr__(
         self
@@ -94,14 +99,14 @@ class Pokemon:  # defines the pokemon class and their starting attributes based 
 ## at some point will write code for creating pokemon and leveling up etc and other attributes based on type
 
 
-Charmander = Pokemon("Charmander", 12, "Fire", 60, True)
-Squirtle = Pokemon("Squirtle", 15, "Water", 85, True)
-Bulbasaur = Pokemon("Bulbasaur", 13, "Grass", 75, True)
+Charmander = Pokemon("Charmander", 12, "Fire", True)
+Squirtle = Pokemon("Squirtle", 15, "Water", True)
+Bulbasaur = Pokemon("Bulbasaur", 13, "Grass", True)
 
 
 class Trainer:  # defines class of trainers with inputs
     def __init__(
-        self, name, no_of_potions, pokemon_list, currently_active
+        self, name, no_of_potions = 0, pokemon_list = [], currently_active = []
     ):
         self.name = name
         self.no_of_potions = no_of_potions
@@ -157,19 +162,7 @@ class Trainer:  # defines class of trainers with inputs
             print("You cannot switch to this pokemon as it is unconscious!")
 
 
-Alex = Trainer("Alex", 12, [Charmander, Squirtle], 0)
 
-Geordie = Trainer("Geordie", 15, [Bulbasaur, Squirtle], 0)
 
 
 ## A battle, at some point this could be coded to loop until victory.
-Alex.attack_other_trainer(Geordie)
-Geordie.attack_other_trainer(Alex)
-Alex.attack_other_trainer(Geordie)
-Geordie.attack_other_trainer(Alex)
-Alex.attack_other_trainer(Geordie)
-Geordie.attack_other_trainer(Alex)
-Alex.attack_other_trainer(Geordie)
-Geordie.attack_other_trainer(Alex)
-Geordie.switch_pokemon(1)
-Geordie.attack_other_trainer(Alex)
